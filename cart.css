@@ -1,0 +1,246 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body {
+   
+    padding: 20px;
+    font-family: Arial;
+    min-height: 100vh;
+    background-image: linear-gradient(360deg, rgba(0, 0, 0, 0) 0%, rgb(0, 188, 212) 100%);
+}
+  
+/* navgiation bar start */
+/* .Wrapper{
+    background-color: darkgray;
+    
+} */
+.Wrapper{
+    opacity: 1;
+}
+.nav_h1{
+    text-align: center;
+}
+.log_signup{
+    display: flex;
+    justify-content: flex-end;
+
+    
+}
+
+.nav_logo{
+    display: inline-block;
+   
+}
+.nav_logo img{
+    width: 100px;
+    height: 100px; 
+    border-radius: 50%;
+}
+.nav_links{
+    display: inline-block;
+    padding: 0px 20px ;
+    border-radius: 40%;
+    margin: auto;
+}
+.nav_links input{
+    font-size: 2vw;
+    background-color: rgb(199, 136, 53);
+    margin: 10px;
+ padding: 0px 20px ;
+    
+}
+
+
+.search_bar{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    width: 50%;
+    background-color: white;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: auto;
+}
+#search_prod{
+    width: 100%;
+   padding: 10px;
+    
+}
+/* login form */
+#myForm{
+    position: fixed;
+    width: 50%;
+    margin: auto;
+    background: azure;
+    /* display: none; */
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+}
+.form-container{
+    
+    width: 70%;
+    margin: auto;
+  
+    
+}
+.form-container h1{
+    text-align: center;
+    padding: 20px;
+}
+.form-container button{
+    width: 90px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+.username{
+          
+    padding:0.5rem;
+    font-size: 1rem;
+    border: 3px solid lightblue;
+}
+.password{
+          
+    padding:0.5rem;
+    font-size: 1rem;
+    border: 3px solid lightblue;
+}
+.login_btn{
+    text-align: center;
+}
+.loging_first{
+    position: absolute;
+    left: 50%;
+    top: 12%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    background: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    animation: .1s linear 1s 4.9 alternate slidein;
+}
+@keyframes slidein {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+
+
+/* image product starts */
+.product_img{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 30px;
+    text-align: center;
+
+    width: 80%;
+margin: auto;
+    
+}
+.product_img img{
+    
+        width: 72%;
+        height: 230px;
+        margin: auto;
+        margin-top: 20px;
+
+
+}
+.img_grid{
+    display: grid;
+    grid-template-columns: auto;
+    background: white;
+    margin-top: 30px;
+    border-radius: 50px;
+
+
+}
+.add_cart{
+    margin: auto;
+    width: 60%;
+    padding: 10px;
+    border-radius: 50px;
+    margin-bottom: 30px;
+}
+/* footer section */
+footer{
+    text-align: center;
+    margin-top: 10px;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+/* cart section start */
+.cart_icon {
+    position: absolute;
+    top: 108px;
+    left: 90%;
+}
+.cart_icon button{
+    background: transparent;
+}
+.item_counter{
+    position: relative;
+    top: -30px;
+    font-size: x-large;
+    color: darkred;
+}
+/* cart product list */
+.list_cart{
+    position: absolute;
+    top: 10%;
+    right: 20%;
+    background-color: white;
+    width: 60%;
+    min-height: 100%;
+    min-width: 300px;
+    height: auto;
+    border-radius: 10px;
+    max-height: 500px;
+    overflow: scroll;
+    z-index: 1;
+    visibility: hidden;
+}
+.list_cart h1{
+    text-align: center;
+    margin-top: 20px;
+  
+}
+.cart_prod_inline{
+margin-top: 60px;
+}
+.cart_prod{
+    display: inline-block;
+    width: 50%;
+    text-align: center;    
+}
+.cart_add_remove{
+    display: inline-block;
+    margin: 20px;
+}
+.close_cart_icon{
+
+    position: absolute;
+    right: 2%;
+    top: 22px;
+    background: transparent;
+}
+table{
+    width: 80%;
+    font-size: 25px;
+    margin-left: 70px;
+    margin-bottom: 30px;
+}
+tr,table {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  .total_price{
+      margin-top: 40px;
+  }
+  .total_price h3 {
+display: inline-block;
+
+  }
+
