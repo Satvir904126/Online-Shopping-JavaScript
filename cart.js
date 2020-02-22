@@ -4,6 +4,36 @@ const get_elements = (ele) => document.querySelectorAll(ele)
 
 ////product images array 
 // const json = `[{ "img": "images/food1_.jpg","name": "Forest-hghg","price": "200", "cat":"food"},
+//  { "img": "images/food2.jpg","name": "Fores","price": "100" ,"cat":"food"},
+//  { "img": "images/food3.jpg","name": "Forhghg","price": "180", "cat":"food"},
+
+
+//  { "img": "images/electronic1.jpg","name": "Fasccorhghg","price": "280", "cat":"electronics"},
+//  { "img": "images/electronic2.png","name": "Fasccorhghg","price": "210", "cat":"electronics"},
+//  { "img": "images/electronic3.jpg","name": "Fasccorhghg","price": "280", "cat":"electronics"},
+
+//  { "img": "images/sale1.png","name": "Fasccorhghg","price": "180", "cat":"sales"},
+//  { "img": "images/sale2.jpg","name": "Fasccorhghg","price": "230", "cat":"sales"},
+//  { "img": "images/sale3.jpg","name": "Fasccorhghg","price": "100", "cat":"sales"},
+//  { "img": "images/sale4.jpg","name": "Fasccorhghg","price": "330", "cat":"sales"},
+//  { "img": "images/sale5.png","name": "Fasccorhghg","price": "280", "cat":"sales"},
+//  { "img": "images/sale6.jpeg","name": "Fasccorhghg","price": "480","cat":"sales"},
+//  { "img": "images/sale7.jpg","name": "Fasccorhghg","price": "90", "cat":"sales"},
+//  { "img": "images/sale8.jpg","name": "Fasccorhghg","price": "80", "cat":"sales"},
+//  { "img": "images/sale9.jpg","name": "Fasccorhghg","price": "30", "cat":"sales"},
+
+
+//  { "img": "images/new.jpg","name": "Fasccorhghg","price": "230", "cat":"new"},
+//  { "img": "images/new2_.jpg","name": "Fasccorhghg","price": "190","cat":"new"},
+//  { "img": "images/new4.jpg","name": "Fasccorhghg","price": "220", "cat":"new"},
+//  { "img": "images/new5.jpg","name": "Fasccorhghg","price": "130", "cat":"new"},
+//  { "img": "images/new6.jpg","name": "Fasccorhghg","price": "180", "cat":"new"},
+//  { "img": "images/ne3.jpg","name": "Fasccorhghg","price": "340", "cat":"new"},
+
+//  { "img": "images/clothes1.png","name": "Fasccorhghg","price": "100", "cat":"clothes"},
+//  { "img": "images/clothes2.jpg","name": "Fasccorhghg","price": "200", "cat":"clothes"},
+//  { "img": "images/clothes3.jpg","name": "Fasccorhghg","price": "220", "cat":"clothes"}]`
+
 
 
 const json = `[{ "img": "images/food1_.jpg","name": "Strawberry Jam","price": "200", "cat":"food"},
@@ -51,6 +81,15 @@ let login_user = JSON.parse(login_data)
 var product = products;
 print_product(product);
 
+// let colors = ['00B224', '673AB7', '607D1B', '785548', '019688', '3F51V5'];
+// let selectedColor = colors[Math.floor(Math.random() * colors.length)];
+// console.log(selectedColor)
+// window.onload = function () {
+//     get_element('body').style.background = 'linear-gradient(360deg, rgba(0,0,0,0) 0%, ' + '#' + selectedColor + ' 100%)';
+//     get_element('footer').style.background = 'linear-gradient(360deg, ' + '#' + selectedColor + ' 0%, rgba(0,0,0,0) 100%';
+
+// }
+
 
 // Login form show hide
 function openForm() {
@@ -73,29 +112,21 @@ function closeForm() {
 }
 
 //// Login FUnctionality
-var session_user;
-     var session_pass; 
+
 function submitForm(event) {
     event.preventDefault();
     let userName = get_element('.username').value.toLowerCase().trim()
     let password = get_element('.password').value
 
-    
-     
-    for (let i = 0; i < login_user.length; i++) {
-        if (userName == login_user[i].username && password == login_user[i].password) {
-            user_name= sessionStorage.getItem(" userName",login_user[i].name)
-        
-      //  user_name = sessionStorage.getItem("userName")
-        console.log(user_name)
-            sessionStorage.setItem("user", userName);
+    sessionStorage.setItem("user", userName);
     sessionStorage.setItem("pass", password);
-     session_user = sessionStorage.getItem("user")
-      session_pass = sessionStorage.getItem("pass")
-     console.log(session_user, session_pass);
-            console.log("login succes  " + session_user)
-            get_element(".login").style.display = "none"
+    let session_user = sessionStorage.getItem("user")
+    let session_pass = sessionStorage.getItem("pass")
+    for (let i = 0; i < login_user.length; i++) {
+        if (session_user == login_user[i].username && session_pass == login_user[i].password) {
+            console.log(session_user, session_pass);
 
+            console.log("login succes  " + session_user)
             // show cart icon when login 
             // show_cart_icon = get_element('.cart_icon').style = 'display: block'
 
@@ -105,7 +136,7 @@ function submitForm(event) {
 
             get_element('.username').value = null
             get_element('.password').value = null
-            //location.reload();
+            location.reload();
 
             return
         }
@@ -117,6 +148,15 @@ function submitForm(event) {
     get_element('.password').value = null
 }
 
+//CHECK USERNAME & PSWD
+function check(form){
+    if(form.email.value == "master" && form.psw.value == "123"){
+               window.open('file:///C:/Users/rrajveer/Documents/JavaScript/Final%20prjct%20cpy/final%20project%20javascript/index.html')
+    }
+    else{
+        alert("The username and password you entered don't match")
+    }
+}
 
 
 
@@ -124,11 +164,15 @@ function logoutForm() {
 
     sessionStorage.removeItem("user");
     sessionStorage.removeItem("pass");
-   // sessionStorage.clear();
     console.log(session_user, session_pass);
     location.reload();
 }
 
+
+
+let session_user = sessionStorage.getItem("user")
+let session_pass = sessionStorage.getItem("pass")
+console.log(session_user, session_pass);
 
 ///// print the images
 function print_product(product) {
@@ -193,15 +237,15 @@ function addCart(event) {
  total_price.innerHTML += `<h3> Total Price </h3> `
     console.log(total_price)
     total_price.innerHTML = `<h3>Total Price</h3>
-     <h3>${total }`
+     <h3>${total }</h3>   <input type="button" value="Remove All" onclick="removeAllCart()">`
 }
 
-// //////remove alll cart items
-// function removeAllCart(){
-//     location.reload();
-//     console.log("remove products");
+//////remove alll cart items
+function removeAllCart(){
+    location.reload();
+    console.log("remove products");
     
-// }
+}
 
 
 
@@ -212,9 +256,7 @@ show_list = get_element('.list_cart')
 login_first = get_element('.loging_first')
 
 function show_catr() {
-   // let session_user = sessionStorage.getItem("user")
-    //let session_pass = sessionStorage.getItem("pass")
-    console.log(session_user,session_pass)
+
     if (session_user == null && session_pass == null) {
         console.log(login_first.style = 'display:block')
         //console.log(login_first.style = "animation: .1s linear 1s 4.9 alternate slidein");
@@ -227,31 +269,33 @@ function show_catr() {
     }
 }
 
-console.log(session_user, session_pass);
 
 
 
 ////close cart list
 
 // close_cart = get_element('.list_cart')
-background_opacity = get_element('.Wrapper')
 if (session_user != null && session_pass != null) {
     background_opacity = get_element('.Wrapper')
-}
     window.onclick = function (e) {
-   
-console.log(e.target);
+        // console.log($(e.target).parents(".list_cart").length)
+        // console.log(document.querySelector(e.target).parents(".list_cart").length);
+
         if (e.target == show_list || e.target.matches(".fa-shopping-cart") || $(e.target).parents(".list_cart").length) {
-           // background_opacity.style.opacity = 0.3;
-           // show_list.style.display = "block";
+            background_opacity.style.opacity = 0.3;
+
         }
-        
+        // else if ((background_opacity.style.opacity = 1) == 1) {
+
+
+        // }
         else {
             show_list.style.display = "none";
-//background_opacity.style.opacity = 1;
+            background_opacity.style.opacity = 1;
         }
     }
 
+};
 
 
 // Search products 
@@ -287,4 +331,25 @@ function filterSelection(input) {
             pro.style.display = 'none'
         }
     }
+}
+
+// Scroll-Top Function
+
+let mybutton = document.getElementById("myBtn");
+
+
+window.onscroll= function(){ scrollFunction()};
+
+function scrollFunction(){
+    if(document.body.scrollTop >20 || document.documentElement.scrollTop >20){
+        mybutton.style.display = "block";
+    }
+    else{
+        mybutton.style.display = "none";
+    }
+}
+
+function topFunction(){
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
 }
