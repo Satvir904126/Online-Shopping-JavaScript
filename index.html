@@ -18,10 +18,12 @@
         <header>
             <button class="btn"><i class="fa fa-bars"></i></i></button>
         <h1 class="nav_h1">Online Shoping</h1>
+        <h3 class="login_name"> </h3>
         <h3 class="loging_first" style="display: none;">Please Login</h3>
         
 
         <!-- login signup -->
+        <!-- <button class="open-button" onclick="openForm()">Login | Logout</button> -->
         <div id="myForm" class="myForm" onsubmit="submitForm(event)">
            
             <form class="form-container">
@@ -36,10 +38,12 @@
               <label for="psw"><b>Password</b></label><br>
               <input type="password" class="password" placeholder="Enter Password" name="psw" required>
               <br> <br>
-        
+              
+              
               <button type="submit" class="login_btn"  onclick="check(this.form)" >Login</button>
                <br><br>
               <button type="button" class="login_btn_cancel" onclick="closeForm()">Close</button>
+              
             </form>
           </div>
 
@@ -63,7 +67,7 @@
                 <input class="button"  type="button" value="Food" onclick="filterSelection('food')" >
                 <input class="button" type="button" value="Electronics" onclick="filterSelection('electronics')" >
                 <input class="button" type="button" value="New Products" onclick="filterSelection('new')">
-                <input class="button" type="button" value="Cloths" onclick="filterSelection('clothes')">
+                <input class="button" type="button" value="Clothes" onclick="filterSelection('clothes')">
                 <input class="button" type="button" value="Sale" onclick="filterSelection('sales')">
             </div>
 

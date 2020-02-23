@@ -3,39 +3,6 @@ const get_element = (ele) => document.querySelector(ele)
 const get_elements = (ele) => document.querySelectorAll(ele)
 
 ////product images array 
-// const json = `[{ "img": "images/food1_.jpg","name": "Forest-hghg","price": "200", "cat":"food"},
-//  { "img": "images/food2.jpg","name": "Fores","price": "100" ,"cat":"food"},
-//  { "img": "images/food3.jpg","name": "Forhghg","price": "180", "cat":"food"},
-
-
-//  { "img": "images/electronic1.jpg","name": "Fasccorhghg","price": "280", "cat":"electronics"},
-//  { "img": "images/electronic2.png","name": "Fasccorhghg","price": "210", "cat":"electronics"},
-//  { "img": "images/electronic3.jpg","name": "Fasccorhghg","price": "280", "cat":"electronics"},
-
-//  { "img": "images/sale1.png","name": "Fasccorhghg","price": "180", "cat":"sales"},
-//  { "img": "images/sale2.jpg","name": "Fasccorhghg","price": "230", "cat":"sales"},
-//  { "img": "images/sale3.jpg","name": "Fasccorhghg","price": "100", "cat":"sales"},
-//  { "img": "images/sale4.jpg","name": "Fasccorhghg","price": "330", "cat":"sales"},
-//  { "img": "images/sale5.png","name": "Fasccorhghg","price": "280", "cat":"sales"},
-//  { "img": "images/sale6.jpeg","name": "Fasccorhghg","price": "480","cat":"sales"},
-//  { "img": "images/sale7.jpg","name": "Fasccorhghg","price": "90", "cat":"sales"},
-//  { "img": "images/sale8.jpg","name": "Fasccorhghg","price": "80", "cat":"sales"},
-//  { "img": "images/sale9.jpg","name": "Fasccorhghg","price": "30", "cat":"sales"},
-
-
-//  { "img": "images/new.jpg","name": "Fasccorhghg","price": "230", "cat":"new"},
-//  { "img": "images/new2_.jpg","name": "Fasccorhghg","price": "190","cat":"new"},
-//  { "img": "images/new4.jpg","name": "Fasccorhghg","price": "220", "cat":"new"},
-//  { "img": "images/new5.jpg","name": "Fasccorhghg","price": "130", "cat":"new"},
-//  { "img": "images/new6.jpg","name": "Fasccorhghg","price": "180", "cat":"new"},
-//  { "img": "images/ne3.jpg","name": "Fasccorhghg","price": "340", "cat":"new"},
-
-//  { "img": "images/clothes1.png","name": "Fasccorhghg","price": "100", "cat":"clothes"},
-//  { "img": "images/clothes2.jpg","name": "Fasccorhghg","price": "200", "cat":"clothes"},
-//  { "img": "images/clothes3.jpg","name": "Fasccorhghg","price": "220", "cat":"clothes"}]`
-
-
-
 const json = `[{ "img": "images/food1_.jpg","name": "Strawberry Jam","price": "200", "cat":"food"},
  { "img": "images/food2.jpg","name": "Cadbury","price": "100" ,"cat":"food"},
  { "img": "images/food3.jpg","name": "Spicy Noodle","price": "180", "cat":"food"},
@@ -81,14 +48,7 @@ let login_user = JSON.parse(login_data)
 var product = products;
 print_product(product);
 
-// let colors = ['00B224', '673AB7', '607D1B', '785548', '019688', '3F51V5'];
-// let selectedColor = colors[Math.floor(Math.random() * colors.length)];
-// console.log(selectedColor)
-// window.onload = function () {
-//     get_element('body').style.background = 'linear-gradient(360deg, rgba(0,0,0,0) 0%, ' + '#' + selectedColor + ' 100%)';
-//     get_element('footer').style.background = 'linear-gradient(360deg, ' + '#' + selectedColor + ' 0%, rgba(0,0,0,0) 100%';
 
-// }
 
 
 // Login form show hide
@@ -127,6 +87,7 @@ function submitForm(event) {
             console.log(session_user, session_pass);
 
             console.log("login succes  " + session_user)
+           
             // show cart icon when login 
             // show_cart_icon = get_element('.cart_icon').style = 'display: block'
 
@@ -138,27 +99,39 @@ function submitForm(event) {
             get_element('.password').value = null
             location.reload();
 
-            return
+
         }
 
 
     }
+    
     console.log("login faild")
     get_element('.username').value = null
     get_element('.password').value = null
 }
 
-//CHECK USERNAME & PSWD
-function check(form){
-    if(form.email.value == "master" && form.psw.value == "123"){
-               window.open('file:///C:/Users/rrajveer/Documents/JavaScript/Final%20prjct%20cpy/final%20project%20javascript/index.html')
+////// change color 
+let colors = ['00B224', '673AB7', '607D1B', '785548', '019688', '3F51V5'];
+let selectedColor = colors[Math.floor(Math.random() * colors.length)];
+console.log(selectedColor)
+
+window.onload = function () {
+    for (let i = 0; i < login_user.length; i++) {
+      
+    if (session_user == login_user[i].username && session_pass == login_user[i].password) {
+     this.sessionStorage.setItem("user",login_user[i].name)
+        user_name= sessionStorage.getItem("user")
+console.log(user_name);
+
+        console.log(get_element(".login").style.display ="none")
+console.log(get_element(".nav_h1").innerHTML += `<h3 class="login_name"> ${user_name} logged in</h3>`)
+
     }
-    else{
-        alert("The username and password you entered don't match")
-    }
+    get_element('body').style.background = 'linear-gradient(360deg, rgba(0,0,0,0) 0%, ' + '#' + selectedColor + ' 100%)';
+    get_element('footer').style.background = 'linear-gradient(360deg, ' + '#' + selectedColor + ' 0%, rgba(0,0,0,0) 100%';
+
 }
-
-
+}
 
 function logoutForm() {
 
