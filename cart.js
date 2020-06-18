@@ -57,7 +57,7 @@ function openForm() {
     if (session_user != null && session_pass != null) {
 
         alert("You are already loged in")
-        // hide the login div after login 
+            // hide the login div after login 
         document.getElementById("myForm").style.display = "none";
 
     } else {
@@ -87,7 +87,7 @@ function submitForm(event) {
             console.log(session_user, session_pass);
 
             console.log("login succes  " + session_user)
-           
+
             // show cart icon when login 
             // show_cart_icon = get_element('.cart_icon').style = 'display: block'
 
@@ -104,7 +104,7 @@ function submitForm(event) {
 
 
     }
-    
+
     console.log("login faild")
     get_element('.username').value = null
     get_element('.password').value = null
@@ -115,23 +115,24 @@ let colors = ['00B224', '673AB7', '607D1B', '785548', '019688', '3F51V5'];
 let selectedColor = colors[Math.floor(Math.random() * colors.length)];
 console.log(selectedColor)
 
-window.onload = function () {
+window.onload = function() {
     for (let i = 0; i < login_user.length; i++) {
-      
-    if (session_user == login_user[i].username && session_pass == login_user[i].password) {
-     this.sessionStorage.setItem("user",login_user[i].name)
-        user_name= sessionStorage.getItem("user")
-console.log(user_name);
 
-        console.log(get_element(".login").style.display ="none")
-console.log(get_element(".nav_h1").innerHTML += `<h3 class="login_name"> ${user_name} logged in</h3>`)
+        if (session_user == login_user[i].username && session_pass == login_user[i].password) {
+            this.sessionStorage.setItem("user", login_user[i].name)
+            user_name = sessionStorage.getItem("user")
+            console.log(user_name);
+
+            console.log(get_element(".login").style.display = "none")
+            console.log(get_element(".nav_h1").innerHTML += `<h3 class="login_name"> ${user_name} logged in</h3>`)
+
+        }
+        get_element('body').style.background = 'linear-gradient(360deg, rgba(0,0,0,0) 0%, ' + '#' + selectedColor + ' 100%)';
+        get_element('footer').style.background = 'linear-gradient(180deg, ' + '#' + selectedColor + ' 0%, rgba(0,0,0,0) 100%';
 
     }
-    get_element('body').style.background = 'linear-gradient(360deg, rgba(0,0,0,0) 0%, ' + '#' + selectedColor + ' 100%)';
-    get_element('footer').style.background = 'linear-gradient(360deg, ' + '#' + selectedColor + ' 0%, rgba(0,0,0,0) 100%';
+}
 
-}
-}
 
 function logoutForm() {
 
@@ -147,6 +148,35 @@ let session_user = sessionStorage.getItem("user")
 let session_pass = sessionStorage.getItem("pass")
 console.log(session_user, session_pass);
 
+//navbar
+const navbar = () => {
+    const burger = get_element(".burger");
+    const links = get_elements(".nav_links input");
+    const nav = get_element(".nav_links");
+    burger.addEventListener('click', () => {
+        nav.classList.toggle("nav-active");
+
+        links.forEach((link, index) => {
+            if (link.style.animation) {
+                link.style.animation = "";
+            } else {
+                link.style.animation = `navLinkFade 0.5s ease forwards ${index / 8}s `;
+                console.log(index / 8);
+                console.log(link.class);
+
+            }
+
+        });
+
+    });
+
+
+}
+navbar();
+
+const borderShadow = get_element('.img_grid').style.boxShadow = 'inset 15px 11px 50px 6px green';
+console.log(borderShadow);
+
 ///// print the images
 function print_product(product) {
     let img = get_element(".product_img")
@@ -158,7 +188,7 @@ function print_product(product) {
         let img_price = src = product[key].price;
         let category = src = product[key].cat;
         // console.log( category );
-        img.innerHTML += (`<div class="img_grid ${category} all" id="cat${key}" >
+        img.innerHTML += (`<div class="img_grid  ${category} all" id="cat${key}" >
      <img  src = "${img_src}"> 
      <h2>${img_name}  </h2>
      <h3>$${img_price}  </h3> 
@@ -176,8 +206,8 @@ let total = 0
 
 function addCart(event) {
     let product_cart = get_elements('.img_grid')
-     
-     let add_product_cart = get_element('.cart_prod_inline')
+
+    let add_product_cart = get_element('.cart_prod_inline')
     for (let i = 0; i < product_cart.length; i++) {
         let all_cart_elements = get_elements(`#cat${i}`)
         let product = product_cart[i];
@@ -200,24 +230,24 @@ function addCart(event) {
      </tr><tr><td>
              
          </td><td></td></tr></tbody></table>`
-               console.log(price = price.substr(1))
-            //     add_product_cart.innerHTML += `<h3>
-                total += +price
+            console.log(price = price.substr(1))
+                //     add_product_cart.innerHTML += `<h3>
+            total += +price
 
         }
     }
     let total_price = get_element(".total_price")
- total_price.innerHTML += `<h3> Total Price </h3> `
+    total_price.innerHTML += `<h3> Total Price </h3> `
     console.log(total_price)
     total_price.innerHTML = `<h3>Total Price</h3>
      <h3>${total }</h3>   <input type="button" value="Remove All" onclick="removeAllCart()">`
 }
 
 //////remove alll cart items
-function removeAllCart(){
+function removeAllCart() {
     location.reload();
     console.log("remove products");
-    
+
 }
 
 
@@ -225,14 +255,14 @@ function removeAllCart(){
 
 ///////// show cart list in cart menu
 show_list = get_element('.list_cart')
-//cart_empty = get_element(".cart_prod_inline").innerHTML
+    //cart_empty = get_element(".cart_prod_inline").innerHTML
 login_first = get_element('.loging_first')
 
 function show_catr() {
 
     if (session_user == null && session_pass == null) {
         console.log(login_first.style = 'display:block')
-        //console.log(login_first.style = "animation: .1s linear 1s 4.9 alternate slidein");
+            //console.log(login_first.style = "animation: .1s linear 1s 4.9 alternate slidein");
 
         setTimeout(() => {
             login_first.style.display = 'none'
@@ -250,7 +280,7 @@ function show_catr() {
 // close_cart = get_element('.list_cart')
 if (session_user != null && session_pass != null) {
     background_opacity = get_element('.Wrapper')
-    window.onclick = function (e) {
+    window.onclick = function(e) {
         // console.log($(e.target).parents(".list_cart").length)
         // console.log(document.querySelector(e.target).parents(".list_cart").length);
 
@@ -311,18 +341,17 @@ function filterSelection(input) {
 let mybutton = document.getElementById("myBtn");
 
 
-window.onscroll= function(){ scrollFunction()};
+window.onscroll = function() { scrollFunction() };
 
-function scrollFunction(){
-    if(document.body.scrollTop >20 || document.documentElement.scrollTop >20){
+function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
         mybutton.style.display = "block";
-    }
-    else{
+    } else {
         mybutton.style.display = "none";
     }
 }
 
-function topFunction(){
+function topFunction() {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
 }

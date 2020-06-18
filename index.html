@@ -16,119 +16,121 @@
     <!-- wraper -->
     <div class="Wrapper">
         <header>
-            <button class="btn"><i class="fa fa-bars"></i></i></button>
-        <h1 class="nav_h1">Online Shoping</h1>
-        <h3 class="login_name"> </h3>
-        <h3 class="loging_first" style="display: none;">Please Login</h3>
-        
-
-        <!-- login signup -->
-        <!-- <button class="open-button" onclick="openForm()">Login | Logout</button> -->
-        <div id="myForm" class="myForm" onsubmit="submitForm(event)">
-           
-            <form class="form-container">
-                <img src="images/loginicon.png" class="icon">
-               
-              <h1>Login</h1>
-          
-              <label for="Username" ><b>Username</b></label><br>
-              <input type="text" class="username" placeholder="Enter Username" name="email" required>
-              <br> <br>
-        
-              <label for="psw"><b>Password</b></label><br>
-              <input type="password" class="password" placeholder="Enter Password" name="psw" required>
-              <br> <br>
-              
-              
-              <button type="submit" class="login_btn"  onclick="check(this.form)" >Login</button>
-               <br><br>
-              <button type="button" class="login_btn_cancel" onclick="closeForm()">Close</button>
-              
-            </form>
-          </div>
+            <h1 class="nav_h1">Online Shoping</h1>
+            <h3 class="login_name"> </h3>
+            <h3 class="loging_first" style="display: none;">Please Login</h3>
 
 
-        <div class="log_signup">
-            
-            <input type="button" class="login" value="Login" onclick="openForm()">
-            <button type="button" class="logout_btn" onclick="logoutForm()">Logout</button>
-            <!-- <div class="signup">| Signup</div> -->
-        </div>
-        <nav>
+            <!-- login signup -->
+            <!-- <button class="open-button" onclick="openForm()">Login | Logout</button> -->
+            <div id="myForm" class="myForm" onsubmit="submitForm(event)">
+
+                <form class="form-container">
+                    <img src="images/loginicon.png" class="icon">
+
+                    <h1>Login</h1>
+
+                    <label for="Username"><b>Username</b></label><br>
+                    <input type="text" class="username" placeholder="Enter Username" name="email" required>
+                    <br> <br>
+
+                    <label for="psw"><b>Password</b></label><br>
+                    <input type="password" class="password" placeholder="Enter Password" name="psw" required>
+                    <br> <br>
 
 
-            <div class="nav_logo">
-                <img src="images/images_logo.jfif" alt="logo image">
+                    <button type="submit" class="login_btn" onclick="check(this.form)">Login</button>
+                    <br><br>
+                    <button type="button" class="login_btn_cancel" onclick="closeForm()">Close</button>
 
+                </form>
             </div>
 
-            <div class="nav_links" id="myBtnContainer">
-                <input type="button" class="button active" onclick="filterSelection('all')" value="Show All"> 
-                <input class="button"  type="button" value="Food" onclick="filterSelection('food')" >
-                <input class="button" type="button" value="Electronics" onclick="filterSelection('electronics')" >
-                <input class="button" type="button" value="New Products" onclick="filterSelection('new')">
-                <input class="button" type="button" value="Clothes" onclick="filterSelection('clothes')">
-                <input class="button" type="button" value="Sale" onclick="filterSelection('sales')">
+            <nav>
+
+
+                <div class="nav_logo">
+                    <img src="images/images_logo.jfif" alt="logo image">
+
+                </div>
+
+                <div class="nav_links" id="myBtnContainer">
+                    <input type="button" class="button active" onclick="filterSelection('all')" value="Show All">
+                    <input class="button" type="button" value="Food" onclick="filterSelection('food')">
+                    <input class="button" type="button" value="Electronics" onclick="filterSelection('electronics')">
+                    <input class="button" type="button" value="New Products" onclick="filterSelection('new')">
+                    <input class="button" type="button" value="Clothes" onclick="filterSelection('clothes')">
+                    <input class="button" type="button" value="Sale" onclick="filterSelection('sales')">
+                </div>
+
+
+                <div class="burger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+
+            </nav>
+            <!--login buttons-->
+            <div class="log_signup">
+
+                <input type="button" class="login" value="Login" onclick="openForm()">
+                <button type="button" class="logout_btn" onclick="logoutForm()">Logout</button>
+                <!-- <div class="signup">| Signup</div> -->
             </div>
 
-            
-
-        </nav>
-
-<!-- search product -->
-<div class="search_bar">
-<i class='fas fa-search' style='font-size: 28px;padding: 6px;color:red'></i>
-<input type="text" name="search_prod" id="search_prod" onkeyup="search(this)" placeholder="Search product">
-</div>
-</header>
-<!-- product display -->
-<main>
-<div class="product_img">
-<!-- images of products here -->
-<!-- 
-<div class="img_grid"> <img  src = "images/img0.png">
+            <!-- search product -->
+            <div class="search_bar">
+                <i class='fas fa-search' style='font-size: 28px;padding: 6px;color:red'></i>
+                <input type="text" name="search_prod" id="search_prod" onkeyup="search(this)" placeholder="Search product">
+            </div>
+        </header>
+        <!-- product display -->
+        <main>
+            <div class="product_img">
+                <!-- images of products here -->
+                <!-- 
+          <div class="img_grid"> <img  src = "images/img0.png">
     <h2>$400  </h2> 
     <h2>name of image  </h2>
     <button class="add_cart" onclick="addCart()" >Add to Cart</button>
-</div> -->
-    </div>
+    </div> -->
+            </div>
 
-</main>
+        </main>
+
+    </div>
     <!-- footer start -->
     <footer>
         online shoping @2020 java script
     </footer>
+    <!-- add to cart icon -->
+    <div class="cart_icon">
+        <button class='fas fa-shopping-cart' style='font-size:48px;color:red' onclick="show_catr()"></button>
+        <span class="item_counter">0</span>
     </div>
 
-<!-- add to cart icon -->
-<div class="cart_icon" >
-<button class='fas fa-shopping-cart' style='font-size:48px;color:red' onclick="show_catr()"></button>
-<span class="item_counter" >0</span>
-</div>
+    <!-- show list of cart products -->
 
-<!-- show list of cart products -->
+    <div class="list_cart">
+        <h1>Cart products</h1>
+        <!-- <button class="close_cart_icon"><i class="material-icons" style="font-size:30px;color:red" onclick="closeForm()">close</i> </button> -->
 
-<div class="list_cart">
-<h1>Cart products</h1>
-<!-- <button class="close_cart_icon"><i class="material-icons" style="font-size:30px;color:red" onclick="closeForm()">close</i> </button> -->
+        <div class="cart_prod_inline">
 
-<div class="cart_prod_inline">
+        </div>
+        <div class="total_price">
+            <h3>Total Price
+                <h3>
+                    <h3>$0</h3>
 
-</div>
-<div class="total_price">
-    <h3>Total Price<h3>
-        <h3>$0</h3>
-       
+        </div>
     </div>
-</div>
-</div>
+    </div>
 
-<!-- SCROLL TOP BUTTON -->
-<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-<div class="abt-us" >
-    <a href="#">About Us</a>
-    <a href="#">About Us</a>
-</div>
+    <!-- SCROLL TOP BUTTON -->
+    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+
 
 
 
