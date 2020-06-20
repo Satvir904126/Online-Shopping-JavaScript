@@ -53,22 +53,51 @@ print_product(product);
 
 // Login form show hide
 function openForm() {
+    console.log(document.getElementById("myForm").style = "display: block ");
+    document.getElementById("myForm").style = "transform: translate(-50%, -50%) scale(1)";
+    // hide by click anywhere on window
+    modal = document.getElementById("myForm");
+    window.onclick = function(event) {
+            console.log(modal);
+            console.log(event.target);
+            console.log($(event.target).parents("#myForm").length);
+            if (!event.target.matches(".login_btn_cancel")) {
+                if (event.target == modal || event.target.matches(".login") || $(event.target).parents("#myForm").length) {
+                    background_opacity.style.opacity = 0.3;
 
-    if (session_user != null && session_pass != null) {
+                } else {
 
-        alert("You are already loged in")
-            // hide the login div after login 
-        document.getElementById("myForm").style.display = "none";
+                    modal.style.display = "none";
+                    background_opacity.style.opacity = 1;
 
-    } else {
-        console.log(document.getElementById("myForm").style = "display: block ");
-        document.getElementById("myForm").style = "transform: translate(-50%, -50%) scale(1)";
+                    console.log("click outside of the window");
+                }
+            }
+        }
+        // if (session_user != null && session_pass != null) {
 
-    }
+    //     alert("You are already loged in")
+    //         // hide the login div after login 
+    //     document.getElementById("myForm").style.display = "none";
+
+
+    // } else {
+    //     console.log("ggg");
+
+    //     console.log(document.getElementById("myForm").style = "display: block ");
+    //     document.getElementById("myForm").style = "transform: translate(-50%, -50%) scale(1)";
+
+    // }
 }
 
 function closeForm() {
+    var background_opacity = get_element('.Wrapper')
+
     document.getElementById("myForm").style.display = "none";
+    background_opacity.style.opacity = 1;
+    console.log("click outside of thelllllllllll window");
+
+
 }
 
 //// Login FUnctionality
@@ -82,14 +111,16 @@ function submitForm(event) {
     sessionStorage.setItem("pass", password);
     let session_user = sessionStorage.getItem("user")
     let session_pass = sessionStorage.getItem("pass")
+
+
     for (let i = 0; i < login_user.length; i++) {
+        console.log((session_user == login_user[i].username && session_pass == login_user[i].password));
+
         if (session_user == login_user[i].username && session_pass == login_user[i].password) {
             console.log(session_user, session_pass);
 
             console.log("login succes  " + session_user)
 
-            // show cart icon when login 
-            // show_cart_icon = get_element('.cart_icon').style = 'display: block'
 
             // hide the login div after login 
             document.getElementById("myForm").style.display = "none";
@@ -100,15 +131,32 @@ function submitForm(event) {
             location.reload();
 
 
+        } else {
+            console.log("login Failed");
+            console.log(login_first.style = 'display:block');
+            setTimeout(() => {
+                login_first.style.display = 'none'
+            }, 1500);
+
+            console.log(get_element(".loging_first").innerHTML = " login failed try again!")
+            console.log(session_user);
+
+            document.getElementById("myForm").style.display = "none";
+
         }
 
 
     }
 
+
+
     console.log("login faild")
     get_element('.username').value = null
     get_element('.password').value = null
 }
+
+
+
 
 ////// change color 
 let colors = ['00B224', '673AB7', '607D1B', '785548', '019688', '3F51V5'];
@@ -118,18 +166,25 @@ console.log(selectedColor)
 window.onload = function() {
     for (let i = 0; i < login_user.length; i++) {
 
+        // hide login button if user is login,Print current user name
+
         if (session_user == login_user[i].username && session_pass == login_user[i].password) {
-            this.sessionStorage.setItem("user", login_user[i].name)
-            user_name = sessionStorage.getItem("user")
-            console.log(user_name);
+            this.sessionStorage.setItem("userName", login_user[i].name)
+            user_name = sessionStorage.getItem("userName")
 
             console.log(get_element(".login").style.display = "none")
             console.log(get_element(".nav_h1").innerHTML += `<h3 class="login_name"> ${user_name} logged in</h3>`)
 
         }
+
         get_element('body').style.background = 'linear-gradient(360deg, rgba(0,0,0,0) 0%, ' + '#' + selectedColor + ' 100%)';
         get_element('footer').style.background = 'linear-gradient(180deg, ' + '#' + selectedColor + ' 0%, rgba(0,0,0,0) 100%';
 
+
+        if (session_user != login_user[i].username && session_pass != login_user[i].password) {
+            console.log(get_element(".logout_btn").style.display = "none")
+
+        }
     }
 }
 
@@ -149,29 +204,47 @@ let session_pass = sessionStorage.getItem("pass")
 console.log(session_user, session_pass);
 
 //navbar
+
+
 const navbar = () => {
-    const burger = get_element(".burger");
-    const links = get_elements(".nav_links input");
-    const nav = get_element(".nav_links");
-    burger.addEventListener('click', () => {
-        nav.classList.toggle("nav-active");
+        const burger = get_element(".burger");
+        const links = get_elements(".nav_links input");
+        const nav = get_element(".nav_links");
 
-        links.forEach((link, index) => {
-            if (link.style.animation) {
-                link.style.animation = "";
-            } else {
-                link.style.animation = `navLinkFade 0.5s ease forwards ${index / 8}s `;
-                console.log(index / 8);
-                console.log(link.class);
 
-            }
 
+        burger.addEventListener('click', () => {
+            nav.classList.toggle("nav-active");
+            addRemoveStyle();
         });
+        links.forEach((item, index) => {
+            item.addEventListener('click', () => {
+
+                nav.classList.toggle("nav-active");
+                console.log("pressed" + index);
+                addRemoveStyle();
+            });
+        });
+    }
+    // hide the nav bar
+
+const addRemoveStyle = () => {
+    const links = get_elements(".nav_links input");
+
+    links.forEach((link, index) => {
+        if (link.style.animation) {
+            // link.style.animation = `navLinhHide 0.5s ease forwards ${index / 8}s `;
+            link.style.animation = "";
+        } else {
+            link.style.animation = `navLinkFade 0.5s ease forwards ${index / 8}s `;
+            console.log(index / 8);
+            console.log(link.class);
+
+        }
 
     });
-
-
 }
+
 navbar();
 
 const borderShadow = get_element('.img_grid').style.boxShadow = 'inset 15px 11px 50px 6px green';
@@ -259,16 +332,18 @@ show_list = get_element('.list_cart')
 login_first = get_element('.loging_first')
 
 function show_catr() {
+    for (let i = 0; i < login_user.length; i++) {
 
-    if (session_user == null && session_pass == null) {
-        console.log(login_first.style = 'display:block')
-            //console.log(login_first.style = "animation: .1s linear 1s 4.9 alternate slidein");
+        if (session_user != login_user[i].username && session_pass != login_user[i].password) {
+            console.log(login_first.style = 'display:block')
+                //console.log(login_first.style = "animation: .1s linear 1s 4.9 alternate slidein");
 
-        setTimeout(() => {
-            login_first.style.display = 'none'
-        }, 800);
-    } else {
-        console.log(show_list.style = 'visibility: visible;')
+            setTimeout(() => {
+                login_first.style.display = 'none'
+            }, 1000);
+        } else {
+            console.log(show_list.style = 'visibility: visible;')
+        }
     }
 }
 
@@ -278,27 +353,31 @@ function show_catr() {
 ////close cart list
 
 // close_cart = get_element('.list_cart')
-if (session_user != null && session_pass != null) {
-    background_opacity = get_element('.Wrapper')
-    window.onclick = function(e) {
-        // console.log($(e.target).parents(".list_cart").length)
-        // console.log(document.querySelector(e.target).parents(".list_cart").length);
 
-        if (e.target == show_list || e.target.matches(".fa-shopping-cart") || $(e.target).parents(".list_cart").length) {
-            background_opacity.style.opacity = 0.3;
+for (let i = 0; i < login_user.length; i++) {
+    var background_opacity = get_element('.Wrapper')
 
+    if (session_user == login_user[i].username && session_pass == login_user[i].password) {
+        window.onclick = function(e) {
+            // console.log($(e.target).parents(".list_cart").length)
+            // console.log(document.querySelector(e.target).parents(".list_cart").length);
+
+            if (e.target == show_list || e.target.matches(".fa-shopping-cart") || $(e.target).parents(".list_cart").length) {
+                background_opacity.style.opacity = 0.3;
+
+            }
+            // else if ((background_opacity.style.opacity = 1) == 1) {
+
+
+            // }
+            else {
+                show_list.style.display = "none";
+                background_opacity.style.opacity = 1;
+            }
         }
-        // else if ((background_opacity.style.opacity = 1) == 1) {
 
-
-        // }
-        else {
-            show_list.style.display = "none";
-            background_opacity.style.opacity = 1;
-        }
-    }
-
-};
+    };
+}
 
 
 // Search products 
