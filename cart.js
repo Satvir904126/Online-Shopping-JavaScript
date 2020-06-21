@@ -48,29 +48,36 @@ let login_user = JSON.parse(login_data)
 var product = products;
 print_product(product);
 
+//set the model over body login or cart
+var opacity = get_element(".opacity_full_page")
 
+function setOpacity() {
+    opacity.style = "z-index: 1";
+    opacity.style = "background: #0000008a"
+    document.getElementsByTagName("body")[0].style = "overflow:hidden";
+}
 
+function removeOpacity() {
+    get_element(".opacity_full_page").style = "background:none"
+    document.getElementsByTagName("body")[0].style = "overflow:''";
+}
 
 // Login form show hide
 function openForm() {
     console.log(document.getElementById("myForm").style = "display: block ");
     document.getElementById("myForm").style = "transform: translate(-50%, -50%) scale(1)";
+
     // hide by click anywhere on window
     modal = document.getElementById("myForm");
     window.onclick = function(event) {
-            console.log(modal);
-            console.log(event.target);
-            console.log($(event.target).parents("#myForm").length);
+
             if (!event.target.matches(".login_btn_cancel")) {
                 if (event.target == modal || event.target.matches(".login") || $(event.target).parents("#myForm").length) {
-                    background_opacity.style.opacity = 0.3;
-
+                    setOpacity();
                 } else {
 
                     modal.style.display = "none";
-                    background_opacity.style.opacity = 1;
-
-                    console.log("click outside of the window");
+                    removeOpacity();
                 }
             }
         }
@@ -193,6 +200,7 @@ function logoutForm() {
 
     sessionStorage.removeItem("user");
     sessionStorage.removeItem("pass");
+    removeAllCart()
     console.log(session_user, session_pass);
     location.reload();
 }
@@ -272,14 +280,20 @@ function print_product(product) {
 let all_cart_elements = get_element('.img_grid').innerText
 console.log(all_cart_elements);
 
+
+
 //////add cart function
 item_counter = get_element(".item_counter");
 let counter = 0
 let total = 0
 
-function addCart(event) {
-    let product_cart = get_elements('.img_grid')
+// increment the counter value and save it into the session
+sessionStorage.setItem("counter", counter);
+counterCart = sessionStorage.getItem("counter")
 
+function addCart(event) {
+
+    let product_cart = get_elements('.img_grid')
     let add_product_cart = get_element('.cart_prod_inline')
     for (let i = 0; i < product_cart.length; i++) {
         let all_cart_elements = get_elements(`#cat${i}`)
@@ -287,37 +301,73 @@ function addCart(event) {
 
         let name = product.querySelector('h2').innerText;
         let price = product.querySelector('h3').innerText;
-        //console.log(name,price)
+        // console.log(name, price)
 
         let cart_button = get_element(`#cat${i}`).id
+
+
         if (event == cart_button) {
 
 
-            item_counter = get_element(".item_counter").innerHTML = ++counter;
-            //console.log(++counter)
+
+            item_counter = get_element(".item_counter").innerHTML = ++counterCart;
+
             let add_product_cart = get_element('.cart_prod_inline')
-            add_product_cart.innerHTML += `<table><tr> <td>Name</td>
-         <td> ${name}</td>
-     </tr><tr>
-         <td>Price</td><td>${price} </td>
-     </tr><tr><td>
-             
-         </td><td></td></tr></tbody></table>`
+            add_product_cart.innerHTML += `<table id="table${i}"><tr> <td>Name</td>
+                 <td> ${name}</td>
+             </tr><tr>
+                 <td>Price</td><td>${price} </td>
+             </tr><tr><td>
+
+                 </td><td></td></tr></tbody></table>`
+
+            sessionStorage.setItem("table", add_product_cart.innerHTML);
+            // let table = sessionStorage.getItem("table")
+            //  substr remove $ sign from starting of price
             console.log(price = price.substr(1))
-                //     add_product_cart.innerHTML += `<h3>
             total += +price
 
+
+            sessionStorage.setItem("stored_product", total);
+            let stored_product = sessionStorage.getItem("stored_product")
+                // console.log(stored_product[i].setName);
         }
+
+
+
     }
     let total_price = get_element(".total_price")
     total_price.innerHTML += `<h3> Total Price </h3> `
-    console.log(total_price)
-    total_price.innerHTML = `<h3>Total Price</h3>
-     <h3>${total }</h3>   <input type="button" value="Remove All" onclick="removeAllCart()">`
+    total_price.innerHTML = `<h3>Total Price: $</h3>
+     <h3>${total }</h3>  `
+    let removeAllCartButton = get_element(".removeAllCartButton")
+    console.log(removeAllCartButton);
+
+    removeAllCartButton.innerHTML = `<input type="button" class="removeAllCart" value="Remove All" onclick="removeAllCart()">`
 }
+
+
+// cart element show in cart div through session
+let table = sessionStorage.getItem("table")
+let add_product_cart = get_element('.cart_prod_inline')
+add_product_cart.innerHTML = table;
+
+
+var tableList = document.getElementsByTagName("table");
+var counterCart = sessionStorage.setItem("counter", tableList.length);
+var counterCart = sessionStorage.getItem("counter")
+item_counter = get_element(".item_counter").innerHTML = counterCart
+    // item_counter.innerHTML += counterCart;
+
+
+console.log(counterCart);
+console.log(tableList.length);
+
 
 //////remove alll cart items
 function removeAllCart() {
+    sessionStorage.removeItem("table");
+    sessionStorage.removeItem("counter");
     location.reload();
     console.log("remove products");
 
@@ -341,8 +391,10 @@ function show_catr() {
             setTimeout(() => {
                 login_first.style.display = 'none'
             }, 1000);
+
         } else {
-            console.log(show_list.style = 'visibility: visible;')
+            console.log(show_list.style = 'visibility: visible;');
+
         }
     }
 }
@@ -352,19 +404,15 @@ function show_catr() {
 
 ////close cart list
 
-// close_cart = get_element('.list_cart')
-
 for (let i = 0; i < login_user.length; i++) {
     var background_opacity = get_element('.Wrapper')
 
     if (session_user == login_user[i].username && session_pass == login_user[i].password) {
         window.onclick = function(e) {
-            // console.log($(e.target).parents(".list_cart").length)
-            // console.log(document.querySelector(e.target).parents(".list_cart").length);
 
             if (e.target == show_list || e.target.matches(".fa-shopping-cart") || $(e.target).parents(".list_cart").length) {
-                background_opacity.style.opacity = 0.3;
-
+                // background_opacity.style.opacity = 0.3;
+                setOpacity();
             }
             // else if ((background_opacity.style.opacity = 1) == 1) {
 
@@ -372,7 +420,9 @@ for (let i = 0; i < login_user.length; i++) {
             // }
             else {
                 show_list.style.display = "none";
-                background_opacity.style.opacity = 1;
+                removeOpacity(); // document.getElementsByTagName("body")[0].style = "overflow:''"
+
+
             }
         }
 
