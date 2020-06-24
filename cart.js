@@ -285,11 +285,14 @@ console.log(all_cart_elements);
 //////add cart function
 item_counter = get_element(".item_counter");
 let counter = 0
-let total = 0
-
+    // let total = 0
+let productStore = [];
+// let totalSession = 0
 // increment the counter value and save it into the session
 sessionStorage.setItem("counter", counter);
 counterCart = sessionStorage.getItem("counter")
+
+
 
 function addCart(event) {
 
@@ -301,7 +304,7 @@ function addCart(event) {
 
         let name = product.querySelector('h2').innerText;
         let price = product.querySelector('h3').innerText;
-        // console.log(name, price)
+
 
         let cart_button = get_element(`#cat${i}`).id
 
@@ -312,44 +315,55 @@ function addCart(event) {
 
             item_counter = get_element(".item_counter").innerHTML = ++counterCart;
 
-            let add_product_cart = get_element('.cart_prod_inline')
-            add_product_cart.innerHTML += `<table id="table${i}"><tr> <td>Name</td>
-                 <td> ${name}</td>
-             </tr><tr>
-                 <td>Price</td><td>${price} </td>
-             </tr><tr><td>
+            add_product_cart = get_element('.cart_prod_inline')
 
-                 </td><td></td></tr></tbody></table>`
+            productStore.push(`<table id="table${i}"><tr> <td>Name</td>
+            <td> ${name}</td </tr><tr> <td>Price</td><td>${price} </td>
+        </tr><tr><td></td><td></td></tr></tbody></table>`)
 
-            sessionStorage.setItem("table", add_product_cart.innerHTML);
-            // let table = sessionStorage.getItem("table")
-            //  substr remove $ sign from starting of price
             console.log(price = price.substr(1))
-            total += +price
+            total = parseInt(price, 10) + parseInt(total, 10)
 
-
-            sessionStorage.setItem("stored_product", total);
-            let stored_product = sessionStorage.getItem("stored_product")
-                // console.log(stored_product[i].setName);
         }
-
-
-
     }
-    let total_price = get_element(".total_price")
-    total_price.innerHTML += `<h3> Total Price </h3> `
-    total_price.innerHTML = `<h3>Total Price: $</h3>
-     <h3>${total }</h3>  `
-    let removeAllCartButton = get_element(".removeAllCartButton")
-    console.log(removeAllCartButton);
 
+
+    totalPrice();
+    printTable();
+
+}
+
+// print table for cart product
+function printTable() {
+
+
+    add_product_cart = get_element('.cart_prod_inline')
+    add_product_cart.innerHTML += productStore[productStore.length - 1];
+    sessionStorage.setItem("table", add_product_cart.innerHTML);
+
+}
+//total price of products
+total = sessionStorage.getItem("stored_product")
+    // total price print
+let total_price = get_element(".total_price")
+total_price.innerHTML = `<h3>Total Price: $</h3><h3>${total }</h3>  `
+let removeAllCartButton = get_element(".removeAllCartButton")
+
+if (total != 0) {
     removeAllCartButton.innerHTML = `<input type="button" class="removeAllCart" value="Remove All" onclick="removeAllCart()">`
 }
 
+function totalPrice() {
+
+    total_price.innerHTML = `<h3>Total Price: $</h3><h3>${total }</h3>  `
+    sessionStorage.setItem("stored_product", total);
+    removeAllCartButton.innerHTML = `<input type="button" class="removeAllCart" value="Remove All" onclick="removeAllCart()">`
+
+}
 
 // cart element show in cart div through session
 let table = sessionStorage.getItem("table")
-let add_product_cart = get_element('.cart_prod_inline')
+add_product_cart = get_element('.cart_prod_inline')
 add_product_cart.innerHTML = table;
 
 
@@ -368,6 +382,9 @@ console.log(tableList.length);
 function removeAllCart() {
     sessionStorage.removeItem("table");
     sessionStorage.removeItem("counter");
+    sessionStorage.removeItem("stored_product");
+    sessionStorage.setItem("stored_product", 0);
+
     location.reload();
     console.log("remove products");
 
