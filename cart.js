@@ -1,6 +1,7 @@
 //// global function to get id and class of html css
 const get_element = (ele) => document.querySelector(ele)
 const get_elements = (ele) => document.querySelectorAll(ele)
+console.log(Date.now());
 
 ////product images array 
 const json = `[{ "img": "images/food1_.jpg","name": "Strawberry Jam","price": "200", "cat":"food"},
@@ -102,7 +103,6 @@ function closeForm() {
 
     document.getElementById("myForm").style.display = "none";
     background_opacity.style.opacity = 1;
-    console.log("click outside of thelllllllllll window");
 
 
 }
@@ -136,9 +136,10 @@ function submitForm(event) {
             get_element('.username').value = null
             get_element('.password').value = null
             location.reload();
+            break;
+        }
 
-
-        } else {
+        if (session_user != login_user[i].username && session_pass != login_user[i].password) {
             console.log("login Failed");
             console.log(login_first.style = 'display:block');
             setTimeout(() => {
@@ -151,9 +152,8 @@ function submitForm(event) {
             document.getElementById("myForm").style.display = "none";
 
         }
-
-
     }
+
 
 
 
@@ -317,21 +317,24 @@ function addCart(event) {
 
             add_product_cart = get_element('.cart_prod_inline')
 
-            productStore.push(`<table id="table${i}"><tr> <td>Name</td>
-            <td> ${name}</td </tr><tr> <td>Price</td><td>${price} </td>
-        </tr><tr><td></td><td></td></tr></tbody></table>`)
-
+            productStore.push(`<table id="table${Date.now()}"><tr> <th>Name</th>
+            <td> ${name}</td </tr><tr> <th>Price</th><td>${price} </td></tr>
+            <tr><td><button class="removeOneCart" id="remove${Date.now()}" onclick="removeOneCart(remove${Date.now()},table${Date.now()},${price.substr(1)})">Remove Cart </button></td></tr></tbody></table>`)
             console.log(price = price.substr(1))
+
             total = parseInt(price, 10) + parseInt(total, 10)
 
         }
     }
 
 
+
     totalPrice();
     printTable();
 
 }
+
+
 
 // print table for cart product
 function printTable() {
@@ -354,11 +357,16 @@ if (total != 0) {
 }
 
 function totalPrice() {
+    console.log("totalprice" + total + total == 0);
 
     total_price.innerHTML = `<h3>Total Price: $</h3><h3>${total }</h3>  `
     sessionStorage.setItem("stored_product", total);
-    removeAllCartButton.innerHTML = `<input type="button" class="removeAllCart" value="Remove All" onclick="removeAllCart()">`
+    if (total == 0) {
+        removeAllCartButton.innerHTML = " "
+    } else {
+        removeAllCartButton.innerHTML = `<input type="button" class="removeAllCart" value="Remove All" onclick="removeAllCart()">`
 
+    }
 }
 
 // cart element show in cart div through session
@@ -376,6 +384,35 @@ item_counter = get_element(".item_counter").innerHTML = counterCart
 
 console.log(counterCart);
 console.log(tableList.length);
+
+//remove cart item one by one
+
+function removeOneCart(btnId, tableId, price) {
+    console.log(btnId);
+
+    console.log(event.target.id == btnId.id);
+
+    let add_product_cart = get_element('.cart_prod_inline')
+        // let price = product.querySelector('h3').innerText;
+
+    if (event.target.id == btnId.id) {
+        var b = document.getElementById(`${tableId.id}`);
+        console.log(b);
+        b.parentNode.removeChild(b);
+
+    }
+    console.log(price);
+    total = total - price
+    console.log(total);
+
+    sessionStorage.setItem("table", add_product_cart.innerHTML);
+    sessionStorage.setItem("stored_product", total);
+    item_counter = get_element(".item_counter").innerHTML = --counterCart;
+
+
+    totalPrice();
+}
+
 
 
 //////remove alll cart items
@@ -427,7 +464,7 @@ for (let i = 0; i < login_user.length; i++) {
     if (session_user == login_user[i].username && session_pass == login_user[i].password) {
         window.onclick = function(e) {
 
-            if (e.target == show_list || e.target.matches(".fa-shopping-cart") || $(e.target).parents(".list_cart").length) {
+            if (e.target == show_list || e.target.matches(".fa-shopping-cart") || e.target.matches(".removeOneCart") || $(e.target).parents(".list_cart").length) {
                 // background_opacity.style.opacity = 0.3;
                 setOpacity();
             }

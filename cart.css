@@ -14,7 +14,7 @@ body .opacity_full_page {
     /* background: #0000008a; */
     position: absolute;
     width: 100%;
-    height: 100vh;
+    height: 200vh;
     top: 0;
     left: 0;
     z-index: -1;
@@ -432,8 +432,17 @@ h1 {
     margin: auto;
     width: 60%;
     padding: 10px;
-    border-radius: 50px;
+    border-radius: 15px;
     margin-bottom: 30px;
+    border: 2px solid;
+    transition: width 0.8s;
+    outline: none;
+}
+
+.add_cart:hover {
+    background: rgb(194, 158, 81);
+    width: 70%;
+    color: wheat;
 }
 
 
@@ -525,10 +534,22 @@ footer {
     background: transparent;
 }
 
+.removeOneCart {
+    padding: 5px;
+    border: 2px solid blue;
+    color: blue;
+    cursor: pointer;
+}
+
+td:nth-child(1) {
+    margin: 5px auto;
+}
+
 .removeAllCartButton {
     display: flex;
     width: 100%;
     justify-content: center;
+    margin: 20px 0px;
 }
 
 .removeAllCartButton>input {
@@ -551,6 +572,14 @@ tr,
 table {
     border: 1px solid black;
     border-collapse: collapse;
+}
+
+tr {
+    display: flex;
+}
+
+th {
+    margin: 0px 60px 0px 20px;
 }
 
 .total_price {
@@ -724,5 +753,21 @@ table {
     #myForm {
         top: 40%;
         left: 60%;
+    }
+    .log_signup {
+        justify-content: start;
+    }
+    .list_cart {
+        top: 32%;
+        right: 13%;
+        min-height: 68%;
+    }
+    table {
+        font-size: 20px;
+        margin: auto;
+        margin-top: 10px;
+    }
+    th {
+        margin: 0px 20px 0px 0px;
     }
 }
