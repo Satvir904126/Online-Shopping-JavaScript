@@ -6,9 +6,9 @@ In this, User can visit the site and can check the products and add to cart. How
 You can filter products based on category.
 
 You can clone this repository and use this website for your own purpose.
-> There is no database connected to this website.
-> All product catalog is stored in JSON file named productsdata.js
-> Users details are also stored in JSON file named productsdata.js
+ There is no database connected to this website.
+ All product catalog is stored in JSON file named productsdata.js
+ Users details are also stored in JSON file named productsdata.js
 
 ---
 
